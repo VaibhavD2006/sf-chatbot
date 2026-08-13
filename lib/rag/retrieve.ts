@@ -1,13 +1,27 @@
-import type { RetrievalResult, RetrievalConfig } from '@/lib/types/retrieval'
+import type { RetrievalResult, RetrievalConfig, RetrievedChunk } from '@/lib/types/retrieval'
 import { embedText } from '@/lib/ai/embeddings'
 import { hybridSearch } from './hybrid-search'
 import { rerankByRelevance } from './rerank'
 import { config } from '@/lib/utils/env'
 import { log } from '@/lib/utils/logger'
 
+// Matches "What did Jane Smith say about X?" and similar patterns
+const GUEST_QUERY_PATTERN = /\bwhat\s+(?:did|does|do)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)+)\s+(?:say|think|talk|mean|believe|suggest|argue|explain)\b/i
+
+function extractGuestFromQuery(query: string): string | null {
+  const m = query.match(GUEST_QUERY_PATTERN)
+  return m ? m[1] : null
+}
+
+function filterByGuest(chunks: RetrievedChunk[], guestName: string): RetrievedChunk[] {
+  const lower = guestName.toLowerCase()
+  return chunks.filter(c => c.guestName?.toLowerCase().includes(lower))
+}
+
 /**
  * Main retrieval function.
  * Embeds the query, runs hybrid search, reranks, and returns the top K chunks.
+ * When the query explicitly names a guest, results are filtered to that guest.
  */
 export async function retrieveChunks(
   query: string,
@@ -23,7 +37,20 @@ export async function retrieveChunks(
   const embedding = await embedText(query)
 
   // Hybrid search: semantic + full-text
-  const candidates = await hybridSearch(embedding, query, retrieveK)
+  let candidates = await hybridSearch(embedding, query, retrieveK)
+
+  // If the query names a specific guest, filter to their chunks only.
+  // Fall back to all candidates if too few guest chunks are found.
+  const namedGuest = extractGuestFromQuery(query)
+  if (namedGuest) {
+    const guestChunks = filterByGuest(candidates, namedGuest)
+    if (guestChunks.length >= 2) {
+      log.info('retrieveChunks: filtering to named guest', { namedGuest, guestChunkCount: guestChunks.length })
+      candidates = guestChunks
+    } else {
+      log.info('retrieveChunks: guest filter returned too few chunks, using all candidates', { namedGuest, guestChunkCount: guestChunks.length })
+    }
+  }
 
   // Rerank by combined semantic + keyword score
   const reranked = rerankByRelevance(candidates, query)
