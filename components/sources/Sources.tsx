@@ -1,8 +1,9 @@
 'use client'
 
-import type { Citation, TranscriptCitation, WebCitation } from '@/lib/types/source'
+import type { Citation, TranscriptCitation, WebCitation, ProfileCitation } from '@/lib/types/source'
 import { TranscriptSource } from './TranscriptSource'
 import { WebSource } from './WebSource'
+import { ProfileSource } from './ProfileSource'
 
 interface SourcesProps {
   citations: Citation[]
@@ -16,6 +17,9 @@ export function Sources({ citations }: SourcesProps) {
   )
   const webCitations = citations.filter(
     (c): c is WebCitation => c.type === 'web'
+  )
+  const profileCitations = citations.filter(
+    (c): c is ProfileCitation => c.type === 'profile'
   )
 
   return (
@@ -41,6 +45,19 @@ export function Sources({ citations }: SourcesProps) {
           <div className="grid gap-2 sm:grid-cols-2">
             {webCitations.map((citation, i) => (
               <WebSource key={i} citation={citation} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {profileCitations.length > 0 && (
+        <div>
+          <p className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide mb-2">
+            Profiles ({profileCitations.length})
+          </p>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {profileCitations.map((citation, i) => (
+              <ProfileSource key={i} citation={citation} />
             ))}
           </div>
         </div>

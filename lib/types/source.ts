@@ -1,9 +1,3 @@
-/** The chat routing decision */
-export type ChatRoute = 'transcript' | 'hybrid' | 'web'
-
-/** Type discriminator for citations */
-export type SourceType = 'transcript' | 'web'
-
 /** A citation pointing to a podcast transcript passage */
 export interface TranscriptCitation {
   type: 'transcript'
@@ -24,5 +18,15 @@ export interface WebCitation {
   snippet?: string
 }
 
+export interface ProfileCitation {
+  type: 'profile'
+  platform: 'linkedin' | 'twitter' | 'instagram' | 'github' | 'website' | 'company' | 'unknown'
+  name?: string
+  url: string
+  confidence: 'high' | 'medium' | 'low'
+}
+
 /** Union of all citation types */
-export type Citation = TranscriptCitation | WebCitation
+export type Citation = TranscriptCitation | WebCitation | ProfileCitation
+export type SourceType = 'transcript' | 'web' | 'profile'
+export type ChatRoute = 'transcript' | 'hybrid' | 'web' | 'agent' | 'hybrid_agent'
