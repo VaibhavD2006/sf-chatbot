@@ -1,0 +1,75 @@
+[
+  {
+    "id": "eval-001",
+    "description": "Direct question about getting first customers",
+    "query": "How did Solo Founders guests get their first customers?",
+    "expectedRoute": "transcript",
+    "expectedEpisode": "EP001",
+    "expectedTopics": ["community", "posting", "niche", "customers"],
+    "notes": "Should retrieve EP001 segments about community posting strategy"
+  },
+  {
+    "id": "eval-002",
+    "description": "Follow-up question about pricing",
+    "query": "What did Sarah say about pricing mistakes?",
+    "expectedRoute": "transcript",
+    "expectedEpisode": "EP001",
+    "expectedTopics": ["pricing", "underpricing", "competitors"],
+    "notes": "Should retrieve the pricing segment from EP001"
+  },
+  {
+    "id": "eval-003",
+    "description": "Product-market fit question",
+    "query": "What signals should I look for to know I have product-market fit?",
+    "expectedRoute": "transcript",
+    "expectedEpisode": "EP001",
+    "expectedTopics": ["product-market fit", "downtime", "emotional", "upset"],
+    "notes": "Sarah's downtime/emotional reaction signal should be retrieved"
+  },
+  {
+    "id": "eval-004",
+    "description": "Question about hiring and contractors",
+    "query": "How do solo founders think about hiring?",
+    "expectedRoute": "transcript",
+    "expectedEpisode": "EP001",
+    "expectedTopics": ["hiring", "contractors", "solo", "employees"],
+    "notes": "Should retrieve the contractors vs employees segment"
+  },
+  {
+    "id": "eval-005",
+    "description": "Customer interview advice",
+    "query": "How many customer interviews should I do before building?",
+    "expectedRoute": "transcript",
+    "expectedEpisode": "EP001",
+    "expectedTopics": ["customer interviews", "fifty", "code", "patterns"],
+    "notes": "Sarah's 50 interviews advice should be retrieved"
+  },
+  {
+    "id": "eval-006",
+    "description": "Pronoun follow-up (requires query rewrite)",
+    "query": "Why did she think that was the right approach?",
+    "conversationContext": [
+      { "role": "user", "content": "What did Sarah say about finding first customers?" },
+      { "role": "assistant", "content": "Sarah Chen recommended posting in niche communities where your target customers spend time, focusing on being genuinely helpful rather than promotional." }
+    ],
+    "expectedRoute": "transcript",
+    "expectedEpisode": "EP001",
+    "notes": "Tests query rewriting — 'she' and 'that approach' should be resolved"
+  },
+  {
+    "id": "eval-007",
+    "description": "Off-topic question triggering web fallback",
+    "query": "What is the current prime interest rate in the United States?",
+    "expectedRoute": "web",
+    "expectedEpisode": null,
+    "notes": "Should not find relevant transcript content and fall back to web search"
+  },
+  {
+    "id": "eval-008",
+    "description": "Partial coverage — hybrid route expected",
+    "query": "What are the best tools available today for doing customer interviews?",
+    "expectedRoute": "hybrid",
+    "expectedEpisode": "EP001",
+    "notes": "Podcast covers customer interviews broadly; tools question benefits from web supplementation"
+  }
+]

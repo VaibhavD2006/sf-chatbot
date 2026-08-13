@@ -1,0 +1,90 @@
+{
+  "_note": "SAMPLE DATA — Replace with real Solo Founders transcripts",
+  "episode_id": "EP001",
+  "episode_title": "Finding Your First 100 Customers",
+  "guest_name": "Sarah Chen",
+  "published_date": "2024-01-15",
+  "source_url": "https://example.com/solo-founders/ep001",
+  "segments": [
+    {
+      "speaker": "Host",
+      "text": "Welcome to Solo Founders, the podcast where we talk with founders who built meaningful companies on their own. Today I'm speaking with Sarah Chen, who bootstrapped her SaaS company to $2 million ARR without any outside funding. Sarah, welcome to the show.",
+      "timestamp": "00:00:00"
+    },
+    {
+      "speaker": "Sarah Chen",
+      "text": "Thanks for having me. I'm excited to share what worked and honestly what didn't work for us in those early days.",
+      "timestamp": "00:00:18"
+    },
+    {
+      "speaker": "Host",
+      "text": "Let's start at the beginning. When you launched, how did you get your very first customers?",
+      "timestamp": "00:00:35"
+    },
+    {
+      "speaker": "Sarah Chen",
+      "text": "The honest answer is I did things that didn't scale. I posted in four or five niche communities where my target customers hung out. Not promotional posts — I was genuinely answering questions, being helpful. Then when people had a problem I could solve, I'd mention my tool. Those first ten customers all came from that approach.",
+      "timestamp": "00:01:02"
+    },
+    {
+      "speaker": "Host",
+      "text": "Which communities specifically, or what types of communities?",
+      "timestamp": "00:02:15"
+    },
+    {
+      "speaker": "Sarah Chen",
+      "text": "I was building for freelance designers, so I was in design subreddits, certain Slack communities, a couple of Discord servers. The key insight was spending time where my exact customer was, not where founders hang out. Founder communities are great for peer support, but if your customers are freelance designers, you need to be in designer spaces.",
+      "timestamp": "00:02:28"
+    },
+    {
+      "speaker": "Host",
+      "text": "How long did it take to go from those first ten customers to something that felt like real product-market fit?",
+      "timestamp": "00:04:10"
+    },
+    {
+      "speaker": "Sarah Chen",
+      "text": "About eight months. And the signal I trusted most wasn't NPS scores or surveys. It was when people started getting genuinely upset when the product had downtime. That emotional reaction — that's when I knew they actually depended on it. Before that point, they liked it. After that point, they needed it. That's the difference.",
+      "timestamp": "00:04:30"
+    },
+    {
+      "speaker": "Host",
+      "text": "That's a really interesting signal. What about pricing? How did you figure out what to charge?",
+      "timestamp": "00:06:45"
+    },
+    {
+      "speaker": "Sarah Chen",
+      "text": "I underpriced for way too long. I was charging forty-nine dollars a month when I should have been charging one-fifty. The mistake I made was looking at what competitors charged and going below them to win on price. But the customers I wanted — professionals who would stick around — they weren't choosing on price. They were choosing on fit and reliability. I raised prices twice and barely lost anyone.",
+      "timestamp": "00:07:05"
+    },
+    {
+      "speaker": "Host",
+      "text": "What advice would you give to a solo founder who is just starting out and has zero customers right now?",
+      "timestamp": "00:15:20"
+    },
+    {
+      "speaker": "Sarah Chen",
+      "text": "Do fifty customer interviews before you write a single line of code. I know everyone says this, but I'm talking about real conversations where you shut up and listen. Not pitching, not validating your idea, just asking about their actual workflow and frustrations. You'll hear patterns after about fifteen or twenty conversations that will completely reshape what you thought you were building.",
+      "timestamp": "00:15:45"
+    },
+    {
+      "speaker": "Host",
+      "text": "How do you think about hiring once you get to a point where you might need help?",
+      "timestamp": "00:22:10"
+    },
+    {
+      "speaker": "Sarah Chen",
+      "text": "I resisted hiring for too long. My reasoning was I wanted to stay solo, which was partly identity and partly fear of managing people. What I ended up doing was bringing in contractors for very specific scoped work — design, copywriting, a specific engineering feature. That let me scale without the overhead of employees. I still consider myself a solo founder even though I work with contractors regularly.",
+      "timestamp": "00:22:35"
+    },
+    {
+      "speaker": "Host",
+      "text": "Last question — what was the single biggest mistake you made in the first year?",
+      "timestamp": "00:30:00"
+    },
+    {
+      "speaker": "Sarah Chen",
+      "text": "Building features no one asked for. I had a roadmap full of things I thought customers would love, and I built about a third of it before I realized almost none of it was being used. The features that actually mattered were all things customers specifically requested or complained about. I should have talked to customers every week from day one, not just at the beginning.",
+      "timestamp": "00:30:20"
+    }
+  ]
+}
