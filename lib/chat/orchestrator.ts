@@ -13,6 +13,8 @@ import { buildSystemPrompt } from '@/lib/ai/prompts/system'
 import { buildTranscriptAnswerPrompt } from '@/lib/ai/prompts/transcript-answer'
 import { buildHybridAnswerPrompt } from '@/lib/ai/prompts/hybrid-answer'
 import { buildWebAnswerPrompt } from '@/lib/ai/prompts/web-answer'
+import { buildResearchAnswerPrompt } from '@/lib/ai/prompts/research-answer'
+import { deepResearch, isResearchQuery } from '@/lib/research/deep-research'
 import { log } from '@/lib/utils/logger'
 
 /** Format retrieved chunks as readable context string for LLM */
@@ -77,11 +79,22 @@ export async function* orchestrate(
   log.info('orchestrate evidence', { evidenceLevel })
 
   // Step 4: Route decision
-  let route: 'transcript' | 'hybrid' | 'web'
+  let route: 'transcript' | 'hybrid' | 'web' | 'research'
   let webResults: WebSearchResult[] = []
+  let researchSubQueries: string[] = []
+
+  const needsWeb = evidenceLevel !== 'transcript_supported'
+  const useDeepResearch = needsWeb && isResearchQuery(latestQuery)
 
   if (evidenceLevel === 'transcript_supported') {
     route = 'transcript'
+  } else if (useDeepResearch) {
+    route = evidenceLevel === 'partially_supported' ? 'research' : 'research'
+    yield { type: 'status', message: 'Researching across multiple sources…' }
+    const transcriptContext = formatTranscriptContext(chunks)
+    const { results, subQueries } = await deepResearch(latestQuery, transcriptContext)
+    webResults = results
+    researchSubQueries = subQueries
   } else if (evidenceLevel === 'partially_supported') {
     route = 'hybrid'
     yield { type: 'status', message: 'Searching the web…' }
@@ -123,6 +136,13 @@ export async function* orchestrate(
       query: latestQuery,
       transcriptContext,
     })
+  } else if (route === 'research') {
+    userPromptContent = buildResearchAnswerPrompt({
+      query: latestQuery,
+      transcriptContext,
+      webContext,
+      subQueries: researchSubQueries,
+    })
   } else if (route === 'hybrid') {
     userPromptContent = buildHybridAnswerPrompt({
       query: latestQuery,
@@ -152,7 +172,7 @@ export async function* orchestrate(
       ],
       stream: true,
       temperature: 0.3,
-      max_tokens: 1200,
+      max_tokens: route === 'research' ? 2000 : 1200,
     })
 
     for await (const chunk of stream) {

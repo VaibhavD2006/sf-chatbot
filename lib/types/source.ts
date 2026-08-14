@@ -29,4 +29,4 @@ export interface ProfileCitation {
 /** Union of all citation types */
 export type Citation = TranscriptCitation | WebCitation | ProfileCitation
 export type SourceType = 'transcript' | 'web' | 'profile'
-export type ChatRoute = 'transcript' | 'hybrid' | 'web' | 'agent' | 'hybrid_agent'
+export type ChatRoute = 'transcript' | 'hybrid' | 'web' | 'agent' | 'hybrid_agent' | 'research'
