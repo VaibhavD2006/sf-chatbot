@@ -2,6 +2,7 @@
 
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import type { Components } from 'react-markdown'
 import { Sources } from '@/components/sources/Sources'
 import type { Citation } from '@/lib/types/source'
 
@@ -9,6 +10,20 @@ interface ChatMessageProps {
   role: 'user' | 'assistant'
   content: string
   citations?: Citation[]
+}
+
+// Block images (tracking pixels / exfiltration) and restrict links to http/https only.
+const SAFE_COMPONENTS: Components = {
+  img: () => null,
+  a: ({ href, children }) => {
+    const safe = typeof href === 'string' && (href.startsWith('https://') || href.startsWith('http://'))
+    if (!safe) return <span>{children}</span>
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer">
+        {children}
+      </a>
+    )
+  },
 }
 
 export function ChatMessage({ role, content, citations }: ChatMessageProps) {
@@ -25,7 +40,7 @@ export function ChatMessage({ role, content, citations }: ChatMessageProps) {
   return (
     <div className="mb-7">
       <div className="markdown-content">
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+        <ReactMarkdown remarkPlugins={[remarkGfm]} components={SAFE_COMPONENTS}>
           {content}
         </ReactMarkdown>
       </div>
