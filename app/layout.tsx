@@ -1,15 +1,14 @@
-import { DM_Sans } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import './globals.css'
 
-const dmSans = DM_Sans({
+const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-dm-sans',
-  weight: ['400', '500', '600', '700'],
+  variable: '--font-inter',
 })
 
 export const metadata = {
-  title: 'Solo Founders — Ask the Podcast',
+  title: 'Solo Founders',
   description: 'Ask anything from the Solo Founders podcast.',
 }
 
@@ -21,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={dmSans.variable}>
+    <html lang="en" className={inter.variable}>
       <body>{children}</body>
     </html>
   )

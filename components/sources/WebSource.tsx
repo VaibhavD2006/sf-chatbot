@@ -1,5 +1,6 @@
 'use client'
 
+import { Card } from '@/components/ui/Card'
 import type { WebCitation } from '@/lib/types/source'
 
 interface WebSourceProps {
@@ -8,20 +9,20 @@ interface WebSourceProps {
 
 export function WebSource({ citation }: WebSourceProps) {
   return (
-    <div className="bg-[var(--bg)] border border-[var(--border)] rounded-lg p-3 text-xs hover:border-gray-300 transition-colors duration-150">
+    <Card padding="sm" className="text-xs">
       <div className="flex items-start gap-2">
         <div className="flex-1 min-w-0">
           <a
             href={citation.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-medium text-[var(--text-primary)] hover:underline underline-offset-2 line-clamp-2 block leading-snug"
+            className="font-medium text-[var(--text-primary)] hover:underline line-clamp-2 block"
           >
             {citation.title}
           </a>
 
           {citation.domain && (
-            <p className="text-[var(--text-muted)] mt-1 truncate">{citation.domain}</p>
+            <p className="text-[var(--text-muted)] mt-0.5 truncate">{citation.domain}</p>
           )}
 
           {citation.snippet && (
@@ -31,12 +32,15 @@ export function WebSource({ citation }: WebSourceProps) {
           )}
         </div>
 
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="shrink-0 text-[var(--text-muted)] mt-0.5" aria-hidden="true">
-          <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
-          <polyline points="15,3 21,3 21,9"/>
-          <line x1="10" y1="14" x2="21" y2="3"/>
-        </svg>
+        {/* External link indicator */}
+        <div className="shrink-0 mt-0.5">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-gray-400">
+            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+            <polyline points="15,3 21,3 21,9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+        </div>
       </div>
-    </div>
+    </Card>
   )
 }
